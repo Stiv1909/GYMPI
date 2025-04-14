@@ -1,62 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>instructores</title>
+  <meta charset="UTF-8">
+  <title>Tipos de Entrenamiento</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="estilos/estilos-tiposentre.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-    <header>
-        <h1>GYMPI</h1>
-        <nav>
-            <div>
-                <button onclick="location.href='tiposEntrenamiento.html'">Tipos de Entrenamiento</button>
-                <button onclick="location.href='informacion.html'">Información</button>
-                <button onclick="location.href='instructores.html'">Instructores</button>
-            </div>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <div>
-                <h3>Nombre Instructor</h3>
-                <p>Descripción Area Especialización</p>
-            </div>
-            <div>
-                <h3>Nombre Instructor</h3>
-                <p>Descripción Area Especialización</p>
-            </div>
-            <div>
-                <h3>Nombre Instructor</h3>
-                <p>Descripción Area Especialización</p>
-            </div>
-            <div>
-                <h3>Nombre Instructor</h3>
-                <p>Descripción Area Especialización</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <!-- Sección Politica de la Empresa -->
-       <section id="Politicas">
-           <ul>
-               <li><a href="term_cond.html">Terminos y Condiciones</a></li>
-               <li><a href="privacidad.html">Privacidad</a></li>
-               <li><a href="acerca.html">Acerca de</a></li>
-           </ul>
-       </section>
-    
-       <!-- Sección Redes Sociales -->
-       <section id="Redes_Sociales">
-           <ul>
-               <li><a href="https://www.facebook.com/"><img src="https://cdn-icons-png.flaticon.com/512/20/20673.png" alt="logo_facebook" style="width: 50px;"></a></li>
-               <li><a href="https://www.youtube.com/"><img src="https://cdn.iconscout.com/icon/free/png-256/free-youtube-104-432560.png" alt="logo_youtube" style="width: 50px;"></a></li>
-               <li><a href="https://www.instagram.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="logo_instagram" style="width: 50px;"></a></li>
-           </ul>
-       </section>
-    
-       <p>&copy; 2025 Gympi - Todos los derechos reservados</p>
-    
-    </footer>
-    
+  
+    <!-- HEADER -->
+<header class="header py-3 px-4 d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <span class="logo-text">GYMPI</span>
+    </div>
+    <!-- Menú de navegación -->
+    <nav>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="informacion.html">Información</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="tiposEntrenamiento.html">Tipos de Entrenamiento</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="instructores.html">Instructores</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="training-card">
+        <img src="imagenes/instructor1.jpg" alt="Nombre instructor" width="300" class="training-img">
+      <div class="training-info">
+        <h3>Diana Salazar</h3>
+        <p>Información basica acerca de las especialidades del instructor.</p>
+      </div>
+    </div>
+    <div class="training-card">
+        <img src="imagenes/instructor2.jpg" alt="Nombre instructor" width="300" class="training-img">
+      <div class="training-info">
+        <h3>Juan Mendez</h3>
+        <p>Información basica acerca de las especialidades del instructor.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+<footer class="footer mt-5 py-4">
+    <div class="container-fluid text-center text-md-start text-white">
+      <div class="row">
+        <div class="col-md-12 mb-2">
+          <a href="#" class="text-white me-4">Términos y Condiciones</a>
+          <a href="#" class="text-white me-4">Privacidad</a>
+          <a href="#" class="text-white">Acerca de</a>
+        </div>
+        <div class="col-md-12 redes-sociales">
+          <a href="https://www.facebook.com/">
+            <img src="https://cdn-icons-png.flaticon.com/512/20/20673.png" alt="logo_facebook" />
+          </a>
+          <a href="https://www.youtube.com/">
+            <img src="https://cdn.iconscout.com/icon/free/png-256/free-youtube-104-432560.png" alt="logo_youtube" />
+          </a>
+          <a href="https://www.instagram.com/">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="logo_instagram" />
+          </a>
+        </div>
+      </div>
+      <div class="text-center mt-3">© 2025 Gympi</div>
+    </div>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
