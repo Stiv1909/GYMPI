@@ -1,7 +1,12 @@
 body{
     margin: 0px;
     padding: 0px;
-    background-color: #bcf0da;
+    background-color: #BEDDDD;
+}
+
+.bg-item{
+    background-color: #BCF0DA;
+    margin-right: 0.5rem;
 }
 
 .bg-link{
@@ -14,12 +19,12 @@ body{
 }
 
 .tit_principal{
-    color: orangered;
+    color: #B0B0B0;
     font-size: 2.5rem;
 }
 
 .tit_principal:hover{
-    color: rgb(255, 102, 0);
+    color: #c0bebe;
 }
 
 .logo{
