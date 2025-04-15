@@ -4,63 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gympi: Guía de Gimnasios en Ipiales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style_sr.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <!-- Encabezado -->
-    <header>
-        <!-- Agrega el logo de la empresa -->
-        <img src="imgenes/Logo.png" alt="Logo Gympi" width="100">
-        <!-- Título principal -->
-        <h1><a href="principal.html">GYMPI</a></h1>
+    <header class="container-fluid bg-dark header">
+        <div class="row h-100"> 
+            <div class="col-6 col-md-1 p-0 h-100 d-flex align-items-center justify-content-end">
+                <!-- Agrega el logo de la empresa -->
+                <a href="principal.html"><img class="img-fluid" src="logo.png" alt="Logo Gympi" style="max-height: 86px;"></a>
+            </div>
+            <div class="col-6 col-md-2 d-flex align-items-center h-100 justify-content-start">
+                <!-- Título principal -->
+                <h1><a class="text-decoration-none tit_principal" href="principal.html">GYMPI</a></h1>
+            </div>
+            <!-- Menú de Navegación -->
+            <nav class="col-12 col-md-9 navbar navbar-expand-md navbar-light bg-nav align-items-center ">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="container-fluid">
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link bg-light" href="Login.html">INICIAR SESIÓN</a>
+                      </li>
+                      <li class="nav-item bg-warning">
+                        <a class="nav-link" href="RegistroUsuario.html">CREAR CUENTA</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
-    <!-- Menú de Navegación -->
-    <nav>
-        <ul>
-            <li><a href="iniciar_sesion.html">INICIAR SESIÓN</a></li>
-            <li><a href="crear_cuenta.html">CREAR CUENTA</a></li>
-        </ul>
-    </nav>
-
     <!-- Contenedor Principal -->
-    <main>
-        <!-- Sección Información General -->
-        <section id="principal">
-            <h1>Guía de Gimnasios en Ipiales</h1>
-            <p>Encuentra el Mejor Espacio para Iniciar tu Vida Fitnes.</p>
-            <a href="iniciar_sesion.html">Comenzar</a>
-        </section>
+    <main class="container-fluid p-5 main">
 
-        <!-- Sección Imagen Representativa Empresa -->
-        <section id="img_principal">
-            <img src="https://cdn.pixabay.com/photo/2018/02/20/11/38/fitness-3167418_1280.jpg" alt="img_principal" style="width: 600px;">
-        </section>
+        <div class="row">
+            <!-- Sección Información General -->
+            <section class="col-6 d-flex flex-wrap align-items-center"  id="principal">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 p-0">
+                            <h1 class="tit_main fw-bold">Guía de Gimnasios en Ipiales</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-3">
+                            <p class="tit_main fw-light fst-italic">"Encuentra el Mejor Espacio para Iniciar tu Vida Fitness"</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 mx-md-auto">
+                            <a class="btn btn-primary" role="button" href="iniciar_sesion.html">Comenzar</a>
+                        </div>
+                    </div>
+                </div>  
+            </section>
+
+            <!-- Sección Imagen Representativa Empresa -->
+            <section class="col-6 d-flex align-items-center justify-content-start" id="img_principal">
+                <img class="img-fluid" src="principal.png" alt="img_principal">
+            </section>
+        </div>
 
     </main>
 
     <!-- Pie de Página -->
-    <footer>
+    <footer class="container-fluid p-5 bg-dark">
          <!-- Sección Politica de la Empresa -->
-        <section id="Politicas">
-            <ul>
-                <li><a href="term_cond.html">Terminos y Condiciones</a></li>
-                <li><a href="privacidad.html">Privacidad</a></li>
-                <li><a href="acerca.html">Acerca de</a></li>
-            </ul>
-        </section>
+        <div class="row">
+            <section class="col-12 col-md-9 pb-3" id="Politicas">
+                <ul class="list-unstyled d-flex flex-wrap gap-4 py-2 m-0 justify-content-center justify-content-md-start">
+                    <li class="px-md-4"><a class="text-nowrap" href="term_cond.html">Terminos y Condiciones</a></li>
+                    <li class="px-md-4"><a class="text-nowrap" href="privacidad.html">Privacidad</a></li>
+                    <li class="px-md-4"><a class="text-nowrap" href="acerca.html">Acerca de</a></li>
+                </ul>
+            </section>
 
-        <!-- Sección Redes Sociales -->
-        <section id="Redes_Sociales">
-            <ul>
-                <li><a href="https://www.facebook.com/"><img src="https://cdn-icons-png.flaticon.com/512/20/20673.png" alt="logo_facebook" style="width: 50px;"></a></li>
-                <li><a href="https://www.youtube.com/"><img src="https://cdn.iconscout.com/icon/free/png-256/free-youtube-104-432560.png" alt="logo_youtube" style="width: 50px;"></a></li>
-                <li><a href="https://www.instagram.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="logo_instagram" style="width: 50px;"></a></li>
-            </ul>
-        </section>
+            <!-- Sección Redes Sociales -->
+            <section class="col-12 col-md-3" id="Redes_Sociales">
+                <ul class="list-unstyled d-flex gap-4 m-0 py-2 justify-content-center">
+                    <li><a href="https://www.facebook.com/"><img src="facebook.png" alt="logo_facebook"></a></li>
+                    <li><a href="https://www.youtube.com/"><img src="https://cdn.iconscout.com/icon/free/png-256/free-youtube-104-432560.png" alt="logo_youtube" ></a></li>
+                    <li><a href="https://www.instagram.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="logo_instagram"></a></li>
+                </ul>
+            </section>
+        </div>  
 
-        <p>&copy; 2025 Gympi - Todos los derechos reservados</p>
+        <div class="row text-center mt-3 mt-md-5 row-copy">
+            <div class="col-12">
+                <p class="copy">&copy; 2025 Gympi - Todos los derechos reservados</p>
+            </div>
+        </div>
 
     </footer>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
