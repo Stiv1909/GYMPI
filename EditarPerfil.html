@@ -24,24 +24,11 @@
                 <h1><a class="text-decoration-none tit_principal" href="principal.html">GYMPI</a></h1>
             </div>
             <!-- Menú de Navegación -->
-            <nav class="col-12 col-md-9 navbar navbar-expand-md navbar-light bg-nav align-items-center ">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="container-fluid">
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                      <li class="nav-item">
-                        <a class="nav-link bg-item" href="Login.html">INICIAR SESIÓN</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link bg-item" href="RegistroUsuario.html">CREAR CUENTA</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-            </nav>
-        </div>
+            <div class="col-12 col-md-9 d-flex justify-content-end align-items-center">
+              <a href="EditarPerfil.html" class="text-white me-4">
+                <i class="bi bi-person-circle" style="font-size: 5rem;"></i>
+            </a>
+          </div>
     </header>
 
 
@@ -53,11 +40,17 @@
             <div class="row d-flex align-items-center justify-content-center">
               
               <!-- Foto de perfil (fuera del contenedor de datos) -->
-              <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
+
+                <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
                 <div class="perfil-foto border rounded-circle d-flex align-items-center justify-content-center mb-3">
                   <i class="bi bi-person" style="font-size: 4rem;"></i>
                 </div>
-                <button class="btn btn-foto"><i class="bi bi-camera-fill me-2"></i></button>
+
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <button class="btn btn-foto" onclick="document.getElementById('fileInput').click();">
+                  <i class="bi bi-camera-fill me-2"></i>
+                </button>
+                
               </div>
     
               <!-- Contenedor de datos del perfil -->
@@ -95,7 +88,6 @@
                       <label class="form-label fw-bold">Fecha de Nacimiento:</label>
                       <div class="input-group">
                         <input type="date" class="form-control">
-                        <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
                       </div>
                     </div>
                     <div class="col-md-3">
