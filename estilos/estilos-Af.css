@@ -1,0 +1,187 @@
+/* estilos/login.css */
+/* Login */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+  
+  .btn-acceder {
+    background-color: #28d160;
+    color: white;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-acceder:hover {
+    background-color: #1aa94a;
+  }
+  
+  .forgot-link {
+    color: purple;
+  }
+  
+  .forgot-link:hover {
+    text-decoration: underline;
+  }
+
+
+
+/* Registrar usuario y propietario */
+
+  
+  .login-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #dcdcdc;
+  }
+  
+  .tab-container .tab {
+    padding: 10px 0;
+    text-decoration: none;
+    background-color: #a7c4e1;
+    color: black;
+    font-weight: bold;
+    
+    border-bottom: none;
+  }
+  
+  .tab-container .active-tab {
+    background-color: #5e88c4;
+    color: white;
+  }
+  
+  .tab-container {
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-weight: 900;
+  }
+  
+  .btn-acceder {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+  }
+
+
+
+
+
+  /* Listar gimnasios */
+
+  /* Título principal */
+  h2 {
+    font-family: 'Arial Black', sans-serif;
+    color: #111;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    font-size: 2.5rem;
+  }
+  
+  /* Estilos para las tarjetas */
+  .card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f8f8f8;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+  }
+  
+  /* Imagen simulada de la tarjeta */
+  .card-img-top {
+    background-color: #ccc;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #666;
+  }
+  
+  /* Título y descripción */
+  .card-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  /* Responsive para el título */
+  @media (max-width: 576px) {
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+  
+
+
+  /*Editar perfil */
+
+  .perfil-wrapper {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .perfil-foto {
+    width: 180px;
+    height: 180px;
+    background-color: #d8e7e9;
+  }
+  
+  .btn-foto {
+    background-color: #7f9ae2;
+    color: white;
+    border-radius: 8px;
+    padding: 6px 20px;
+    font-size: 1.2rem;
+    border: none;
+  }
+  
+  .btn-foto:hover {
+    background-color: #5c7fc7;
+  }
+  
+  .perfil-contenedor {
+    background-color: #f5f5f5;
+  }
+  
+  .btn-acceder {
+    background-color: #4cd964;
+    color: white;
+    border: none;
+    font-weight: bold;
+  }
+  
+  .btn-acceder:hover {
+    background-color: #45c05b;
+  }
+  
+  
+  
+ 
+
+
+
+  
+ 
+  
+
+
+  
+
+  
+  
