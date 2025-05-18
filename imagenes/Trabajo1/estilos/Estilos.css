@@ -1,0 +1,65 @@
+/* styles.css */
+body {
+    background-color: #57ccdb; /* Azul claro */
+}
+
+.card {
+    border-radius: 10px;
+}
+
+h3 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.form-group label {
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* registros */
+/* styles.css */
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+h3 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.form-group label {
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.text-center a {
+    color: #007bff;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
+
