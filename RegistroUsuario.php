@@ -1,3 +1,56 @@
+<?php
+  include 'conexion.php';  // Conectar a la base de datos
+
+  // Inicializar las variables de mensaje y error
+  $mensaje = "";
+  $error = "";
+
+  // Verificar que el formulario se ha enviado
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      // Obtener los valores del formulario
+      $username = $_POST['username'];
+      $correo = $_POST['correo'];
+      $contraseña = $_POST['contraseña'];
+
+      // Validar que el correo no exista ya en la base de datos
+      $sql_check_correo = "SELECT * FROM usuario WHERE correo = '$correo'";
+      $result_check_correo = $conn->query($sql_check_correo);
+      if ($result_check_correo->num_rows > 0) {
+          $error = "El correo electrónico ya está registrado.";
+      }
+
+      // Validar que el nombre del usuario no exista ya en la base de datos
+      $sql_check_nombre = "SELECT * FROM usuario WHERE username = '$username'";
+      $result_check_nombre = $conn->query($sql_check_nombre);
+      if ($result_check_nombre->num_rows > 0) {
+          $error = "El nombre del usuario ya está registrado.";
+      }
+
+      // Si no hay errores, proceder con el registro
+      if (empty($error)) {
+          // Encriptar la contraseña antes de almacenarla
+          $contraseña_encriptada = password_hash($contraseña, PASSWORD_DEFAULT);
+
+          // Asignar un valor de rol por defecto (esto debe estar en base de datos)
+          $rol_id = 1; // Cambia este valor según cómo gestiones los roles
+
+          // Preparar la consulta para insertar los datos
+          $sql = "INSERT INTO usuario (username, correo, contraseña, rol_id) 
+                  VALUES ('$username', '$correo', '$contraseña_encriptada', '$rol_id')";
+
+          if ($conn->query($sql) === TRUE) {
+              $mensaje = "Nuevo usuario registrado exitosamente.";
+          } else {
+              $error = "Error al registrar usuario: " . $conn->error;
+          }
+      }
+  }
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -46,40 +99,59 @@
 
 
 
-    <!-- Contenedor Principal login-->
+    <!-- Contenedor Principal Registro-->
     <main class="container-fluid p-5 main d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        
         <div class="login-container p-4 rounded shadow bg-white">
-          <h2 class="text-center mb-4 fw-bold">Iniciar Sesión</h2>
-          <form>
-            <div class="mb-3 text-start">
-              <label for="correo" class="form-label fw-bold">Correo:</label>
-              <input type="email" class="form-control" id="correo" placeholder="Agregar texto">
-            </div>
-            <div class="mb-3 text-start">
-              <label for="password" class="form-label fw-bold">Contraseña:</label>
-              <input type="password" class="form-control" id="password" placeholder="Agregar texto">
-            </div>
-            <div class="mb-3 text-center">
-                <a href="#" class="forgot-link text-decoration-none">¿Olvidaste tu contraseña?</a>
+            <!-- Encabezado -->
+            <div class="tab-container d-flex">
+                <a href="RegistroUsuario.php" class="tab active-tab w-50 text-center">Usuario</a>
+                <a href="RegistroPropietario.php" class="tab w-50 text-center">Propietario</a>
               </div>
               
-              
+      
+            <!-- Título -->
+            <h2 class="text-center fw-bold mb-4">Crear Cuenta</h2>
+
+
+            <?php
+              if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                if (isset($mensaje) && $mensaje != "") {
+                    echo "<div class='alert alert-success mt-4'>$mensaje</div>";
+                }
+                if (isset($error) && $error != "") {
+                    echo "<div class='alert alert-danger mt-4'>$error</div>";
+                }
+              }
+            ?>
+      
+            <!-- Formulario -->
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            
+              <div class="mb-3">
+                <label for="nomest" class="form-label fw-bold">Username:</label>
+                <input type="text" class="form-control" id="nomest" name="username" placeholder="Agregar texto" required>
+              </div>
+        
+              <div class="mb-3">
+                <label for="email" class="form-label fw-bold">Correo:</label>
+                <input type="email" class="form-control" id="email" name="correo" placeholder="Agregar texto" required>
+              </div>
+        
+              <div class="mb-3">
+                <label for="password" class="form-label fw-bold">Contraseña:</label>
+                <input type="password" class="form-control" id="password" name="contraseña" placeholder="Agregar texto" required>
+              </div>
+      
               <div class="text-center">
-                <a href="ListarGimnasios.html">
-                  <button type="button" class="btn btn-acceder px-4">ACCEDER</button>
+                <a href="Login.html">
+                  <button type="submit" class="btn btn-acceder px-4">REGISTRAR</button>
                 </a>
               </div>
-              
-              
-          </form>
-        </div>
-      
-      
+            </form>
             
-
-            
-
-
+          </div>
+      
     </main>
 
     <!-- Pie de Página -->
