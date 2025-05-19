@@ -1,9 +1,23 @@
+<?php
+  session_start();
+
+  // Verificar si el usuario está logueado
+  if (!isset($_SESSION['rol'])) {
+      // Si no está logueado, redirigir al inicio de sesión
+      header("Location: login.php");
+      exit();
+  }
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gympi: Guía de Gimnasios en Ipiales</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="estilos/style_sr.css" type="text/css">
     <link rel="stylesheet" href="estilos/estilos-Af.css" type="text/css">
@@ -23,73 +37,72 @@
                 <h1><a class="text-decoration-none tit_principal" href="principal.html">GYMPI</a></h1>
             </div>
             <!-- Menú de Navegación -->
-            <nav class="col-12 col-md-9 navbar navbar-expand-md navbar-light bg-nav align-items-center ">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="container-fluid">
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                      <li class="nav-item">
-                        <a class="nav-link bg-item" href="Login.html">INICIAR SESIÓN</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link bg-item" href="RegistroUsuario.html">CREAR CUENTA</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-            </nav>
-        </div>
+            <div class="col-12 col-md-9 d-flex justify-content-end align-items-center">
+              <a href="EditarPerfil.html" class="text-white me-4">
+                <i class="bi bi-person-circle" style="font-size: 5rem;"></i>
+            </a>
+          </div>
+          
+
+
+
+
     </header>
 
 
+    <!-- Enlace para cerrar sesión -->
+    <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>
 
 
-    <!-- Contenedor Principal Registro-->
-    <main class="container-fluid p-5 main d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        
-        <div class="login-container p-4 rounded shadow bg-white">
-            <!-- Encabezado -->
-            <div class="tab-container d-flex">
-                <a href="RegistroUsuario.html" class="tab active-tab w-50 text-center">Usuario</a>
-                <a href="Registro propietario.html" class="tab w-50 text-center">Propietario</a>
-              </div>
-              
+    <!-- Contenedor Principal Listar Gimnasios-->
+    <main class="container-fluid p-5 main d-flex flex-column align-items-center" style="min-height: 100vh; background-color: #94b6bb;">
+
+        <!-- Título -->
+        <h2 class="fw-bold text-center mb-5" style="font-size: 2.5rem;">GIMNASIOS DISPONIBLES</h2>
       
-            <!-- Título -->
-            <h2 class="text-center fw-bold mb-4">Crear Cuenta</h2>
-      
-            <!-- Formulario -->
-            <form>
-              <div class="mb-3">
-                <label for="username" class="form-label fw-bold">Username:</label>
-                <input type="text" class="form-control" id="username" placeholder="Agregar texto">
+        <!-- Tarjetas de gimnasios -->
+        <div class="row justify-content-center g-4 w-100" style="max-width: 1200px;">
+          <!-- Tarjeta 1 -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="informacion.html" class="text-decoration-none text-dark">
+              <div class="card text-center h-100">
+                <img src="imagenes/gim1.png" class="card-img-top" alt="Nombre Establecimiento">
+                <div class="card-body">
+                  <h5 class="card-title fw-bold">Power gym</h5>
+                  <p class="card-text text-muted">Descripción</p>
+                </div>
               </div>
+            </a>
+          </div>
+          
       
-              <div class="mb-3">
-                <label for="email" class="form-label fw-bold">Correo:</label>
-                <input type="email" class="form-control" id="email" placeholder="Agregar texto">
+          <!-- Tarjeta 2 -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="informacion.html" class="text-decoration-none text-dark">
+             <div class="card text-center">
+                <img src="imagenes/gim1.png" class="card-img-top" alt="Nombre Establecimiento">
+                 <div class="card-body">
+                <h5 class="card-title fw-bold">Nombre Establecimiento</h5>
+                <p class="card-text text-muted">Descripción</p>
               </div>
-      
-              <div class="mb-3">
-                <label for="password" class="form-label fw-bold">Contraseña:</label>
-                <input type="password" class="form-control" id="password" placeholder="Agregar texto">
-              </div>
-      
-              <div class="text-center">
-                <a href="Login.html">
-                  <button type="button" class="btn btn-acceder px-4">ACCEDER</button>
-                </a>
-              </div>
-            </form>
+            </div>
+          </a>
           </div>
       
+          <!-- Tarjeta 3 -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="informacion.html" class="text-decoration-none text-dark">
+             <div class="card text-center">
+                <img src="imagenes/gim1.png" class="card-img-top" alt="Nombre Establecimiento">
+                 <div class="card-body">
+                <h5 class="card-title fw-bold">Nombre Establecimiento</h5>
+                <p class="card-text text-muted">Descripción</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        </div>
       
-            
-
-            
-
 
     </main>
 

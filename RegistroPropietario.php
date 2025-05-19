@@ -1,3 +1,54 @@
+<?php
+  include 'conexion.php';  // Conectar a la base de datos
+
+  // Inicializar las variables de mensaje y error
+  $mensaje = "";
+  $error = "";
+
+  // Verificar que el formulario se ha enviado
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      // Obtener los valores del formulario
+      $nombre_gym = $_POST['nombre_gym'];
+      $correo = $_POST['correo'];
+      $contraseña = $_POST['contraseña'];
+
+      // Validar que el correo no exista ya en la base de datos
+      $sql_check_correo = "SELECT * FROM propietario WHERE correo = '$correo'";
+      $result_check_correo = $conn->query($sql_check_correo);
+      if ($result_check_correo->num_rows > 0) {
+          $error = "El correo electrónico ya está registrado.";
+      }
+
+      // Validar que el nombre del establecimiento no exista ya en la base de datos
+      $sql_check_nombre = "SELECT * FROM propietario WHERE nombre_gym = '$nombre_gym'";
+      $result_check_nombre = $conn->query($sql_check_nombre);
+      if ($result_check_nombre->num_rows > 0) {
+          $error = "El nombre del establecimiento ya está registrado.";
+      }
+
+      // Si no hay errores, proceder con el registro
+      if (empty($error)) {
+          // Encriptar la contraseña antes de almacenarla
+          $contraseña_encriptada = password_hash($contraseña, PASSWORD_DEFAULT);
+
+          // Asignar un valor de rol por defecto (esto debe estar en base de datos)
+          $rol_id = 2; // Cambia este valor según cómo gestiones los roles
+
+          // Preparar la consulta para insertar los datos
+          $sql = "INSERT INTO propietario (nombre_gym, correo, contraseña, rol_id) 
+                  VALUES ('$nombre_gym', '$correo', '$contraseña_encriptada', '$rol_id')";
+
+          if ($conn->query($sql) === TRUE) {
+              $mensaje = "Nuevo propietario registrado exitosamente.";
+          } else {
+              $error = "Error al registrar propietario: " . $conn->error;
+          }
+      }
+  }
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -52,45 +103,50 @@
           
           <!-- Tabs -->
           <div class="tab-container d-flex">
-            <a href="RegistroUsuario.html" class="tab w-50 text-center">Usuario</a>
-            <a href="Registro propietario.html" class="tab active-tab w-50 text-center">Propietario</a>
+            <a href="RegistroUsuario.php" class="tab w-50 text-center">Usuario</a>
+            <a href="RegistroPropietario.php" class="tab active-tab w-50 text-center">Propietario</a>
           </div>
       
           <!-- Título -->
           <h2 class="text-center fw-bold mb-4">Crear Cuenta</h2>
+
+          <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              if (isset($mensaje) && $mensaje != "") {
+                  echo "<div class='alert alert-success mt-4'>$mensaje</div>";
+              }
+              if (isset($error) && $error != "") {
+                  echo "<div class='alert alert-danger mt-4'>$error</div>";
+              }
+          }
+          ?>
       
           <!-- Formulario Propietario -->
-          <form>
+          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="mb-3">
               <label for="nomest" class="form-label fw-bold">Nombre Establecimiento:</label>
-              <input type="text" class="form-control" id="nomest" placeholder="Agregar texto">
+              <input type="text" class="form-control" id="nomest" name="nombre_gym" placeholder="Agregar texto" required>
             </div>
       
             <div class="mb-3">
               <label for="email" class="form-label fw-bold">Correo:</label>
-              <input type="email" class="form-control" id="email" placeholder="Agregar texto">
+              <input type="email" class="form-control" id="email" name="correo" placeholder="Agregar texto" required>
             </div>
       
             <div class="mb-3">
               <label for="password" class="form-label fw-bold">Contraseña:</label>
-              <input type="password" class="form-control" id="password" placeholder="Agregar texto">
+              <input type="password" class="form-control" id="password" name="contraseña" placeholder="Agregar texto" required>
             </div>
       
             <div class="text-center">
               <a href="Login.html">
-                <button type="button" class="btn btn-acceder px-4">ACCEDER</button>
+                <button type="submit" class="btn btn-acceder px-4">REGISTRAR</button>
               </a>
             </div>
 
           </form>
-        </div>
-      
-      
-            
 
-            
-
-
+  
     </main>
 
     <!-- Pie de Página -->
