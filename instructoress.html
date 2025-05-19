@@ -48,32 +48,24 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 col-lg-6">
       <h2 class="text-center mb-4">Instructores</h2>
-      <form>
+      <form action="guardar_instructores.php" method="POST" enctype="multipart/form-data">
         <div id="contenedor-instructores">
           <div class="mb-3 row">
             <div class="col-9">
               <label class="form-label">Nombre del Instructor</label>
-              <input type="text" class="form-control mb-2" placeholder="Nombre del instructor" />
+              <input type="text" name="nombre_instructor[]" class="form-control mb-2" placeholder="Nombre del instructor" required />
             </div>
             <div class="col-3 d-flex align-items-end">
               <label class="w-100">
-                <input type="file" class="d-none" />
-                <button type="button" class="btn btn-secondary w-100">
+                <input type="file" name="foto[]" class="d-none" required />
+                <button type="button" class="btn btn-secondary w-100 seleccionar-foto">
                   <i class="fa-solid fa-upload"></i> Foto
                 </button>
               </label>
             </div>
-            <div class="col-9">
-              <label class="form-label">Descripción del Área</label>
-              <input type="text" class="form-control" placeholder="Área del instructor" />
-            </div>
-            <div class="col-3 d-flex align-items-end">
-              <label class="w-100">
-                <input type="file" class="d-none" />
-                <button type="button" class="btn btn-secondary w-100">
-                  <i class="fa-solid fa-upload"></i> Foto
-                </button>
-              </label>
+            <div class="col-12 mt-2">
+              <label class="form-label">Área del Instructor</label>
+              <input type="text" name="area[]" class="form-control" placeholder="Área del instructor" required />
             </div>
           </div>
         </div>
@@ -83,7 +75,7 @@
         </div>
 
         <div class="d-grid">
-          <button type="button" class="btn btn-primary" onclick="location.href='informacion.html'">Finalizar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
       </form>
     </div>
@@ -91,38 +83,43 @@
 </main>
 
 <!-- FOOTER -->
- <!-- Pie de Página -->
- <footer class="container-fluid p-5 bg-dark">
-  <!-- Sección Politica de la Empresa -->
- <div class="row">
-     <section class="col-12 col-md-9 pb-3" id="Politicas">
-         <ul class="list-unstyled d-flex flex-wrap gap-4 py-2 m-0 justify-content-center justify-content-md-start">
-             <li class="px-md-4"><a class="text-nowrap" href="term_cond.html">Terminos y Condiciones</a></li>
-             <li class="px-md-4"><a class="text-nowrap" href="privacidad.html">Privacidad</a></li>
-             <li class="px-md-4"><a class="text-nowrap" href="acerca.html">Acerca de</a></li>
-         </ul>
-     </section>
+<footer class="container-fluid p-5 bg-dark">
+  <div class="row">
+    <section class="col-12 col-md-9 pb-3" id="Politicas">
+      <ul class="list-unstyled d-flex flex-wrap gap-4 py-2 m-0 justify-content-center justify-content-md-start">
+        <li class="px-md-4"><a class="text-nowrap" href="term_cond.html">Términos y Condiciones</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="privacidad.html">Privacidad</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="acerca.html">Acerca de</a></li>
+      </ul>
+    </section>
 
-     <!-- Sección Redes Sociales -->
-     <section class="col-12 col-md-3" id="Redes_Sociales">
-         <ul class="list-unstyled d-flex gap-4 m-0 py-2 justify-content-center">
-             <li><a href="https://www.facebook.com/"><img src="https://cdn-icons-png.flaticon.com/512/20/20673.png" alt="logo_facebook"></a></li>
-             <li><a href="https://www.youtube.com/"><img src="https://cdn.iconscout.com/icon/free/png-256/free-youtube-104-432560.png" alt="logo_youtube" ></a></li>
-             <li><a href="https://www.instagram.com/"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="logo_instagram"></a></li>
-         </ul>
-     </section>
- </div>  
+    <section class="col-12 col-md-3" id="Redes_Sociales">
+      <ul class="list-unstyled d-flex gap-4 m-0 py-2 justify-content-center">
+        <li><a href="https://www.facebook.com/"><img src="https://cdn-icons-png.flaticon.com/512/20/20673.png" alt="logo_facebook"></a></li>
+        <li><a href="https://www.youtube.com/"><img src="https://cdn.iconscout.com/icon/free/png-256/free-youtube-104-432560.png" alt="logo_youtube"></a></li>
+        <li><a href="https://www.instagram.com/"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="logo_instagram"></a></li>
+      </ul>
+    </section>
+  </div>
 
- <div class="row text-center mt-3 mt-md-5 row-copy">
-     <div class="col-12">
-         <p class="copy">&copy; 2025 Gympi - Todos los derechos reservados</p>
-     </div>
- </div>
-
+  <div class="row text-center mt-3 mt-md-5 row-copy">
+    <div class="col-12">
+      <p class="copy">&copy; 2025 Gympi - Todos los derechos reservados</p>
+    </div>
+  </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  function asignarEventosFoto() {
+    document.querySelectorAll('.seleccionar-foto').forEach(btn => {
+      btn.onclick = function () {
+        const input = this.parentElement.querySelector('input[type="file"]');
+        if (input) input.click();
+      };
+    });
+  }
+
   document.getElementById("agregar-instructor").addEventListener("click", function () {
     const contenedor = document.getElementById("contenedor-instructores");
     const nuevo = document.createElement("div");
@@ -130,31 +127,27 @@
     nuevo.innerHTML = `
       <div class="col-9">
         <label class="form-label">Nombre del Instructor</label>
-        <input type="text" class="form-control mb-2" placeholder="Nombre del instructor" />
+        <input type="text" name="nombre_instructor[]" class="form-control mb-2" placeholder="Nombre del instructor" required />
       </div>
       <div class="col-3 d-flex align-items-end">
         <label class="w-100">
-          <input type="file" class="d-none" />
-          <button type="button" class="btn btn-secondary w-100">
+          <input type="file" name="foto[]" class="d-none" required />
+          <button type="button" class="btn btn-secondary w-100 seleccionar-foto">
             <i class="fa-solid fa-upload"></i> Foto
           </button>
         </label>
       </div>
-      <div class="col-9">
-        <label class="form-label">Descripción del Área</label>
-        <input type="text" class="form-control" placeholder="Área del instructor" />
-      </div>
-      <div class="col-3 d-flex align-items-end">
-        <label class="w-100">
-          <input type="file" class="d-none" />
-          <button type="button" class="btn btn-secondary w-100">
-            <i class="fa-solid fa-upload"></i> Foto
-          </button>
-        </label>
+      <div class="col-12 mt-2">
+        <label class="form-label">Área del Instructor</label>
+        <input type="text" name="area[]" class="form-control" placeholder="Área del instructor" required />
       </div>
     `;
     contenedor.appendChild(nuevo);
+    asignarEventosFoto();
   });
+
+  // Activar eventos de los botones de carga
+  asignarEventosFoto();
 </script>
 
 </body>
