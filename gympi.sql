@@ -27,7 +27,6 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `gym`
 --
 
-
 CREATE TABLE `gym` (
   `gym_id` int(11) NOT NULL,
   `correo` varchar(24) NOT NULL,
@@ -39,8 +38,7 @@ CREATE TABLE `gym` (
   `imag_2` blob DEFAULT NULL,
   `imag_3` blob DEFAULT NULL,
   `imag_4` blob DEFAULT NULL,
-  `propietario_id` int(11) NOT NULL,
-  `horario` varchar(255) NOT NULL
+  `propietario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
