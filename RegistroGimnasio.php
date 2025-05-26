@@ -13,14 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = trim($_POST['correo'] ?? '');
     $eslogan = trim($_POST['eslogan'] ?? '');
     $contacto = trim($_POST['contacto'] ?? '');
+    $horario = trim($_POST['horario'] ?? '');
     $direccion = trim($_POST['direccion'] ?? '');
     $propietario_id = $_SESSION['usu_id'];
 
-    $dias = $_POST['dias'] ?? [];
-    $hora_apertura = $_POST['hora_apertura'] ?? [];
-    $hora_cierre = $_POST['hora_cierre'] ?? [];
-
-    if (!$correo || !$eslogan || !$contacto || !$direccion) {
+    if (!$correo || !$eslogan || !$contacto || !$horario || !$direccion) {
         $error = "Por favor completa todos los campos.";
     } else {
         $check_sql = "SELECT COUNT(*) AS total FROM gym WHERE correo = ? OR eslogan = ?";
@@ -40,40 +37,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $imagen_principal = getFileContent($_FILES['imagen_principal'] ?? null);
 
-            // Insertamos los datos del gimnasio
-            $sql = "INSERT INTO gym (correo, eslogan, contacto, direccion, imagen_principal, propietario_id)
-                    VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO gym (correo, eslogan, contacto, direccion, horario, imagen_principal, propietario_id)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
+
             if (!$stmt) {
                 $error = "Error en la preparación de la consulta: " . $conn->error;
             } else {
-                $stmt->bind_param("ssssdi", $correo, $eslogan, $contacto, $direccion, $imagen_principal, $propietario_id);
+                $stmt->bind_param("ssssssi", $correo, $eslogan, $contacto, $direccion, $horario, $imagen_principal, $propietario_id);
 
                 if ($stmt->execute()) {
                     $gym_id = $conn->insert_id;
 
-                    // Insertamos los horarios
-                    if (count($dias) > 0) {
-                        $insertHorario = $conn->prepare("INSERT INTO horario (dia, hora_apertura, hora_cierre, gym_id) VALUES (?, ?, ?, ?)");
-                        if (!$insertHorario) {
-                            $error .= " Error preparando inserción horarios: " . $conn->error;
-                        } else {
-                            for ($i = 0; $i < count($dias); $i++) {
-                                $dia = $dias[$i];
-                                $apertura = $hora_apertura[$i] ?? null;
-                                $cierre = $hora_cierre[$i] ?? null;
+                    // Procesar imágenes instalaciones individualmente
+                    $imag1 = getFileContent($_FILES['imag_1'] ?? null);
+                    $imag2 = getFileContent($_FILES['imag_2'] ?? null);
+                    $imag3 = getFileContent($_FILES['imag_3'] ?? null);
+                    $imag4 = getFileContent($_FILES['imag_4'] ?? null);
 
-                                if ($dia && $apertura && $cierre) {
-                                    $insertHorario->bind_param("sssi", $dia, $apertura, $cierre, $gym_id);
-                                    if (!$insertHorario->execute()) {
-                                        $error .= " Error insertando horario para $dia: " . $insertHorario->error;
-                                    }
-                                } else {
-                                    $error .= " Datos incompletos para horario en $dia. ";
-                                }
-                            }
-                            $insertHorario->close();
-                        }
+                    $updateSql = "UPDATE gym SET imag_1 = ?, imag_2 = ?, imag_3 = ?, imag_4 = ? WHERE gym_id = ?";
+                    $updateStmt = $conn->prepare($updateSql);
+                    if ($updateStmt) {
+                        // Usamos 's' para strings (BLOBs), 'i' para entero
+                        $updateStmt->bind_param("ssssi", $imag1, $imag2, $imag3, $imag4, $gym_id);
+                        $updateStmt->execute();
+                        $updateStmt->close();
+                    } else {
+                        $error .= " Error preparando actualización de imágenes: " . $conn->error;
                     }
 
                     if (empty($error)) {
@@ -139,7 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       width: auto !important;
       display: block;
       margin: 0 auto;
-    
     }
     .file-label {
       display: flex;
@@ -155,6 +144,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       background-color: #f0f0f0;
     }
     input[type="file"] {
+      display: none;
+    }
+    /* Estilos para los botones de carga de imágenes */
+    .btn-upload {
+      display: block;
+      cursor: pointer;
+      width: 120px;
+      height: 120px;
+      border-radius: 10px;
+      border: 2px dashed #0d6efd;
+      position: relative;
+      overflow: hidden;
+      color: #0d6efd;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 120px;
+      text-align: center;
+      user-select: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .btn-upload:hover {
+      background-color: #0d6efd;
+      color: white;
+    }
+    .preview-img {
+      margin-top: 8px;
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ccc;
       display: none;
     }
   </style>
@@ -185,6 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
   </div>
 </header>
+
 <div class="container my-5">
   <?php if (!empty($error)): ?>
     <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
@@ -197,7 +218,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="d-flex form-container shadow">
         <div class="form-left pe-md-4" style="flex: 1; max-width: 250px;">
           <label class="form-label fw-bold mb-2 text-center d-block">IMAGEN PRINCIPAL:</label>
-
           <div id="imgPreview" 
                class="d-flex align-items-center justify-content-center border-radius: 8px; mx-auto mb-3" 
                style="width: 200px; height: 200px; background-color: #ddd; overflow: hidden; cursor: pointer; position: relative;">
@@ -205,7 +225,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img id="previewPrincipal" src="" alt="Imagen Principal" 
                  style="display: none; width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;" />
           </div>
-
           <label for="imagenPrincipalInput" 
                  class="btn btn-primary d-flex align-items-center justify-content-center mx-auto" 
                  style="width: 50px; height: 50px; border-radius: 50%; cursor: pointer; margin-top: 10px;">
@@ -222,8 +241,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo electrónico" required>
           </div>
           <div class="mb-3">
-            <label for="eslogan" class="form-label">Eslogan:</label>
-            <input type="text" name="eslogan" class="form-control" id="eslogan" placeholder="Eslogan del gimnasio" required>
+            <label for="eslogan" class="form-label">Nombre Establecimiento:</label>
+            <input type="text" name="eslogan" class="form-control" id="eslogan" placeholder="Nombre Establecimiento" required>
           </div>
           <div class="mb-3">
             <label for="contacto" class="form-label">Contacto:</label>
@@ -238,13 +257,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="direccion" class="form-label">Dirección:</label>
             <input type="text" name="direccion" class="form-control" id="direccion" placeholder="Dirección del gimnasio" required>
           </div>
+
+          <!-- NUEVA SECCION DE 4 BOTONES DE IMAGEN -->
           <div class="mb-3">
-            <label for="instalaciones" class="form-label">Instalaciones:</label>
-            <label class="file-label">
-              Adjuntar Imágenes
-              <input type="file" id="instalaciones" accept="image/*" multiple name="instalaciones[]">
-            </label>
+            <label class="form-label d-block fw-bold mb-2">Imágenes Instalaciones:</label>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+              <div style="text-align: center;">
+                <label for="imag_1" class="btn-upload">Imagen 1
+                  <input type="file" accept="image/*" name="imag_1" id="imag_1">
+                </label>
+                <img id="preview1" class="preview-img" alt="Preview 1">
+              </div>
+              <div style="text-align: center;">
+                <label for="imag_2" class="btn-upload">Imagen 2
+                  <input type="file" accept="image/*" name="imag_2" id="imag_2">
+                </label>
+                <img id="preview2" class="preview-img" alt="Preview 2">
+              </div>
+              <div style="text-align: center;">
+                <label for="imag_3" class="btn-upload">Imagen 3
+                  <input type="file" accept="image/*" name="imag_3" id="imag_3">
+                </label>
+                <img id="preview3" class="preview-img" alt="Preview 3">
+              </div>
+              <div style="text-align: center;">
+                <label for="imag_4" class="btn-upload">Imagen 4
+                  <input type="file" accept="image/*" name="imag_4" id="imag_4">
+                </label>
+                <img id="preview4" class="preview-img" alt="Preview 4">
+              </div>
+            </div>
           </div>
+
           <button type="submit" class="btn btn-next">SIGUIENTE</button>
         </div>
       </div>
@@ -342,6 +386,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  // Preview imagen principal
+  const inputImagen = document.getElementById('imagenPrincipalInput');
+  const previewImg = document.getElementById('previewPrincipal');
+  const previewText = document.getElementById('defaultIcon');
+
+  inputImagen.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        previewImg.src = e.target.result;
+        previewImg.style.display = 'block';
+        previewText.style.display = 'none';
+      }
+      reader.readAsDataURL(file);
+    } else {
+      previewImg.src = '';
+      previewImg.style.display = 'none';
+      previewText.style.display = 'flex';
+    }
+  });
+
+  // Preview para imágenes instalaciones
+  function setupImagePreview(inputId, previewId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+
+    input.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = '';
+        preview.style.display = 'none';
+      }
+    });
+  }
+
+  setupImagePreview('imag_1', 'preview1');
+  setupImagePreview('imag_2', 'preview2');
+  setupImagePreview('imag_3', 'preview3');
+  setupImagePreview('imag_4', 'preview4');
+
   // Control de habilitar/deshabilitar inputs de horario segun checkboxes
   const dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
   dias.forEach(dia => {
@@ -369,29 +461,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     document.getElementById("horario").value = horarios.join("; ");
     var modal = bootstrap.Modal.getInstance(document.getElementById('modalDias'));
     modal.hide();
-  });
-</script>
-
-<script>
-  const inputImagen = document.getElementById('imagenPrincipalInput');
-  const previewImg = document.getElementById('previewPrincipal');
-  const previewText = document.getElementById('defaultIcon');
-
-  inputImagen.addEventListener('change', function () {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        previewImg.src = e.target.result;
-        previewImg.style.display = 'block';
-        previewText.style.display = 'none';
-      }
-      reader.readAsDataURL(file);
-    } else {
-      previewImg.src = '';
-      previewImg.style.display = 'none';
-      previewText.style.display = 'flex';
-    }
   });
 </script>
 
