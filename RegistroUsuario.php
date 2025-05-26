@@ -40,6 +40,10 @@
 
           if ($conn->query($sql) === TRUE) {
               $mensaje = "Nuevo usuario registrado exitosamente.";
+
+              // Redirigir a Login.php después de registrar el usuario
+              header("Location: Login.php");
+              exit(); // Asegura que no se ejecute más código después de la redirección
           } else {
               $error = "Error al registrar usuario: " . $conn->error;
           }
@@ -84,10 +88,10 @@
                   <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                       <li class="nav-item">
-                        <a class="nav-link bg-item" href="Login.html">INICIAR SESIÓN</a>
+                        <a class="nav-link bg-item" href="Login.php">INICIAR SESIÓN</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link bg-item" href="RegistroUsuario.html">CREAR CUENTA</a>
+                        <a class="nav-link bg-item" href="RegistroUsuario.php">CREAR CUENTA</a>
                       </li>
                     </ul>
                   </div>
@@ -144,9 +148,7 @@
               </div>
       
               <div class="text-center">
-                <a href="Login.html">
-                  <button type="submit" class="btn btn-acceder px-4">REGISTRAR</button>
-                </a>
+                <button type="submit" class="btn btn-acceder px-4">REGISTRAR</button>
               </div>
             </form>
             

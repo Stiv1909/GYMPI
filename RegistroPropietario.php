@@ -82,10 +82,10 @@
                   <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                       <li class="nav-item">
-                        <a class="nav-link bg-item" href="Login.html">INICIAR SESIÓN</a>
+                        <a class="nav-link bg-item" href="Login.php">INICIAR SESIÓN</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link bg-item" href="RegistroUsuario.html">CREAR CUENTA</a>
+                        <a class="nav-link bg-item" href="RegistroUsuario.php">CREAR CUENTA</a>
                       </li>
                     </ul>
                   </div>
@@ -139,7 +139,7 @@
             </div>
       
             <div class="text-center">
-              <a href="Login.html">
+              <a href="Login.php">
                 <button type="submit" class="btn btn-acceder px-4">REGISTRAR</button>
               </a>
             </div>

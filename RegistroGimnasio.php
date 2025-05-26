@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = trim($_POST['correo'] ?? '');
     $eslogan = trim($_POST['eslogan'] ?? '');
     $contacto = trim($_POST['contacto'] ?? '');
-    $horario = trim($_POST['horario'] ?? '');
     $direccion = trim($_POST['direccion'] ?? '');
     $propietario_id = $_SESSION['usu_id'];
 
@@ -21,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hora_apertura = $_POST['hora_apertura'] ?? [];
     $hora_cierre = $_POST['hora_cierre'] ?? [];
 
-    if (!$correo || !$eslogan || !$contacto || !$horario || !$direccion) {
+    if (!$correo || !$eslogan || !$contacto || !$direccion) {
         $error = "Por favor completa todos los campos.";
     } else {
         $check_sql = "SELECT COUNT(*) AS total FROM gym WHERE correo = ? OR eslogan = ?";
@@ -41,18 +40,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $imagen_principal = getFileContent($_FILES['imagen_principal'] ?? null);
 
-            $sql = "INSERT INTO gym (correo, eslogan, contacto, horario, direccion, imagen_principal, propietario_id)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+            // Insertamos los datos del gimnasio
+            $sql = "INSERT INTO gym (correo, eslogan, contacto, direccion, imagen_principal, propietario_id)
+                    VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             if (!$stmt) {
                 $error = "Error en la preparación de la consulta: " . $conn->error;
             } else {
-                $stmt->bind_param("ssssssi", $correo, $eslogan, $contacto, $horario, $direccion, $imagen_principal, $propietario_id);
+                $stmt->bind_param("ssssdi", $correo, $eslogan, $contacto, $direccion, $imagen_principal, $propietario_id);
 
                 if ($stmt->execute()) {
                     $gym_id = $conn->insert_id;
 
+                    // Insertamos los horarios
                     if (count($dias) > 0) {
                         $insertHorario = $conn->prepare("INSERT INTO horario (dia, hora_apertura, hora_cierre, gym_id) VALUES (?, ?, ?, ?)");
                         if (!$insertHorario) {
