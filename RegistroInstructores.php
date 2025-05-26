@@ -69,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (count($errores) === 0) {
-            // Redirige inmediatamente a informacion.php
-            header('Location: informacion.php');
+            // Redirige 
+            header('Location: ListarGimnasios.php');
             exit();
         }
     } else {

@@ -1,3 +1,27 @@
+<?php
+  include 'conexion.php';
+
+  if (!isset($_GET['id'])) {
+    die("ID del gimnasio no especificado.");
+  }
+
+  $gym_id = intval($_GET['id']);
+
+  $sql = "SELECT nombre_entrena, descripción, foto_entren FROM tipos_entrenamiento WHERE gym_id = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("i", $gym_id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  $tipos_entrenamiento = [];
+  while ($row = $result->fetch_assoc()) {
+    $row['foto_entren'] = 'data:image/jpeg;base64,' . base64_encode($row['foto_entren']);
+    $tipos_entrenamiento[] = $row;
+  }
+
+  $stmt->close();
+  $conn->close();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +35,7 @@
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER (igual al original) -->
   <header class="container-fluid bg-dark header">
     <div class="row h-100"> 
       <div class="col-6 col-md-1 p-0 h-100 d-flex align-items-center justify-content-end">
@@ -27,9 +51,9 @@
         <div class="container-fluid">
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item"><a class="nav-link text-white" href="informacion.html">Información</a></li>
-              <li class="nav-item"><a class="nav-link text-white" href="tiposEntrenamiento.html">Tipos de Entrenamiento</a></li>
-              <li class="nav-item"><a class="nav-link text-white" href="instructores.html">Instructores</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="informacion.php?id=<?= $gym_id ?>">Información</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="tiposEntrenamiento.php?id=<?= $gym_id ?>">Tipos de Entrenamiento</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="instructores.php?id=<?= $gym_id ?>">Instructores</a></li>
             </ul>
           </div>
         </div>
@@ -39,39 +63,24 @@
 
   <!-- MAIN -->
   <main class="container my-5">
-    <div class="d-flex flex-wrap justify-content-center gap-4">
-      <div class="training-card">
-        <img src="imagenes/cardio.jpg" alt="Cardio Funcional" class="training-img">
-        <div class="training-info">
-          <h3>Cardio Funcional</h3>
-          <p>Entrenamiento para mejorar resistencia y quema de calorías.</p>
-        </div>
-      </div>
-      <div class="training-card">
-        <img src="imagenes/crossfit.jpg" alt="Crossfit" class="training-img">
-        <div class="training-info">
-          <h3>Crossfit</h3>
-          <p>Entrenamientos de alta intensidad y fuerza muscular.</p>
-        </div>
-      </div>
-      <div class="training-card">
-        <img src="imagenes/yoga.jpg" alt="Yoga" class="training-img">
-        <div class="training-info">
-          <h3>Yoga</h3>
-          <p>Mejora de flexibilidad, equilibrio y relajación mental.</p>
-        </div>
-      </div>
-      <div class="training-card">
-        <img src="imagenes/pesas.jpg" alt="Pesas" class="training-img">
-        <div class="training-info">
-          <h3>Pesas</h3>
-          <p>Ejercicios para ganancia de masa muscular y tonificación.</p>
-        </div>
-      </div>
+    <div class="d-flex flex-column align-items-center gap-4">
+      <?php if (count($tipos_entrenamiento) > 0): ?>
+        <?php foreach ($tipos_entrenamiento as $tipo): ?>
+          <div class="training-card">
+            <img src="<?= $tipo['foto_entren'] ?>" alt="<?= htmlspecialchars($tipo['nombre_entrena']) ?>" class="training-img">
+            <div class="training-info">
+              <h3><?= htmlspecialchars($tipo['nombre_entrena']) ?></h3>
+              <p><?= htmlspecialchars($tipo['descripción']) ?></p>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p class="text-center">No se encontraron tipos de entrenamiento para este gimnasio.</p>
+      <?php endif; ?>
     </div>
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (sin cambios) -->
   <footer class="container-fluid p-5 bg-dark text-white">
     <div class="row">
       <section class="col-12 col-md-9 pb-3" id="Politicas">

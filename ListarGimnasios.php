@@ -105,7 +105,7 @@ $conn->close();
     <div class="row justify-content-center g-4 w-100" style="max-width: 1200px;">
         <?php foreach ($gimnasios as $gym): ?>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <a href="informacion.html" class="text-decoration-none text-dark">
+                <a href="informacion.php?id=<?= $gym['id'] ?>" class="text-decoration-none text-dark">
                     <div class="card text-center h-100">
                         <?php if ($gym['imagen']): ?>
                             <img src="<?= $gym['imagen'] ?>" 
