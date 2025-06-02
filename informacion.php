@@ -48,10 +48,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <header class="container-fluid bg-dark header">
   <div class="row h-100"> 
     <div class="col-6 col-md-1 p-0 h-100 d-flex align-items-center justify-content-end">
-      <a href="principal.html"><img class="img-fluid" src="imagenes/logo.png" alt="Logo Gympi" style="max-height: 86px;"></a>
+      <a href="ListarGimnasios.php"><img class="img-fluid" src="imagenes/logo.png" alt="Logo Gympi" style="max-height: 86px;"></a>
     </div>
     <div class="col-6 col-md-2 d-flex align-items-center h-100 justify-content-start">
-      <h1><a class="text-decoration-none tit_principal" href="principal.html">GYMPI</a></h1>
+      <h1><a class="text-decoration-none tit_principal" href="ListarGimnasios.php">GYMPI</a></h1>
     </div>
     <nav class="col-12 col-md-9 navbar navbar-expand-md navbar-light bg-nav align-items-center">
       <div class="container-fluid">
@@ -155,9 +155,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
   <div class="row">
     <section class="col-12 col-md-9 pb-3" id="Politicas">
       <ul class="list-unstyled d-flex flex-wrap gap-4 py-2 m-0 justify-content-center justify-content-md-start">
-        <li class="px-md-4"><a class="text-nowrap" href="term_cond.html">Términos y Condiciones</a></li>
-        <li class="px-md-4"><a class="text-nowrap" href="privacidad.html">Privacidad</a></li>
-        <li class="px-md-4"><a class="text-nowrap" href="acerca.html">Acerca de</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="term_cond.html" >Términos y Condiciones</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="privacidad.html" >Privacidad</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="acerca.html" >Acerca de</a></li>
       </ul>
     </section>
     <section class="col-12 col-md-3" id="Redes_Sociales">

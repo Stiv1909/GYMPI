@@ -35,7 +35,7 @@
           $rol_id = 1; // Cambia este valor según cómo gestiones los roles
 
           // Preparar la consulta para insertar los datos
-          $sql = "INSERT INTO usuario (username, correo, contraseña, rol_id) 
+          $sql = "INSERT INTO usuario (username, correo, contrasena, rol_id) 
                   VALUES ('$username', '$correo', '$contraseña_encriptada', '$rol_id')";
 
           if ($conn->query($sql) === TRUE) {
@@ -162,9 +162,9 @@
         <div class="row">
             <section class="col-12 col-md-9 pb-3" id="Politicas">
                 <ul class="list-unstyled d-flex flex-wrap gap-4 py-2 m-0 justify-content-center justify-content-md-start">
-                    <li class="px-md-4"><a class="text-nowrap" href="term_cond.html">Terminos y Condiciones</a></li>
-                    <li class="px-md-4"><a class="text-nowrap" href="privacidad.html">Privacidad</a></li>
-                    <li class="px-md-4"><a class="text-nowrap" href="acerca.html">Acerca de</a></li>
+                    <li class="px-md-4"><a class="text-nowrap" href="term_cond.html" >Terminos y Condiciones</a></li>
+                    <li class="px-md-4"><a class="text-nowrap" href="privacidad.html" >Privacidad</a></li>
+                    <li class="px-md-4"><a class="text-nowrap" href="acerca.html" >Acerca de</a></li>
                 </ul>
             </section>
 

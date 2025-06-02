@@ -44,7 +44,7 @@ if (
             $foto_tmp = $fotos['tmp_name'][$i];
             $foto_blob = file_get_contents($foto_tmp);
 
-            $sql = "INSERT INTO tipos_entrenamiento (nombre_entrena, descripción, foto_entren, gym_id) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO tipos_entrenamiento (nombre_entrena, descripcion, foto_entren, gym_id) VALUES (?, ?, ?, ?)";
 
             $stmt = $conn->prepare($sql);
             if ($stmt === false) {
@@ -174,9 +174,9 @@ if (
   <div class="row">
     <section class="col-12 col-md-9 pb-3" id="Politicas">
       <ul class="list-unstyled d-flex flex-wrap gap-4 py-2 m-0 justify-content-center justify-content-md-start">
-        <li class="px-md-4"><a class="text-nowrap" href="term_cond.html">Términos y Condiciones</a></li>
-        <li class="px-md-4"><a class="text-nowrap" href="privacidad.html">Privacidad</a></li>
-        <li class="px-md-4"><a class="text-nowrap" href="acerca.html">Acerca de</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="term_cond.html" >Términos y Condiciones</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="privacidad.html" >Privacidad</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="acerca.html" >Acerca de</a></li>
       </ul>
     </section>
     <section class="col-12 col-md-3" id="Redes_Sociales">

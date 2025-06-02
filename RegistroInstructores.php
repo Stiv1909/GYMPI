@@ -176,9 +176,9 @@ if (count($errores) > 0) {
   <div class="row">
     <section class="col-12 col-md-9 pb-3" id="Politicas">
       <ul class="list-unstyled d-flex flex-wrap gap-4 py-2 m-0 justify-content-center justify-content-md-start">
-        <li class="px-md-4"><a class="text-nowrap" href="term_cond.html">Términos y Condiciones</a></li>
-        <li class="px-md-4"><a class="text-nowrap" href="privacidad.html">Privacidad</a></li>
-        <li class="px-md-4"><a class="text-nowrap" href="acerca.html">Acerca de</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="term_cond.html" >Términos y Condiciones</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="privacidad.html" >Privacidad</a></li>
+        <li class="px-md-4"><a class="text-nowrap" href="acerca.html" >Acerca de</a></li>
       </ul>
     </section>
 

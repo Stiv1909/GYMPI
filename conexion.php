@@ -1,7 +1,7 @@
 <?php
-    $servername = "localhost"; // o la IP del servidor
+    $servername = "127.0.0.1"; // o la IP del servidor
     $username = "root"; // tu usuario de la base de datos
-    $password = ""; // tu contraseña
+    $password = "1234"; // tu contraseña
     $dbname = "gympiv2"; // nombre de la base de datos
 
     // Crear conexión

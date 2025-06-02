@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result_usuario->num_rows > 0) {
             $usuario = $result_usuario->fetch_assoc();
 
-            if (password_verify($contraseña, $usuario['contraseña'])) {
+            if (password_verify($contraseña, $usuario['contrasena'])) {
                 $_SESSION['usu_id'] = $usuario['usu_id'];
                 $_SESSION['rol'] = 'usuario';
 
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif ($result_propietario->num_rows > 0) {
             $propietario = $result_propietario->fetch_assoc();
 
-            if (password_verify($contraseña, $propietario['contraseña'])) {
+            if (password_verify($contraseña, $propietario['contrasena'])) {
                 // Guarda la sesión con misma clave para evitar confusión
                 $_SESSION['usu_id'] = $propietario['propietario_id'];
                 $_SESSION['rol'] = 'propietario';
@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="alert alert-danger mt-4"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <form action="login.php" method="POST" novalidate>
+        <form action="Login.php" method="POST" novalidate>
             <div class="mb-3 text-start">
                 <label for="correo" class="form-label fw-bold">Correo:</label>
                 <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" required />
@@ -145,9 +145,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="row">
         <section class="col-12 col-md-9 pb-3" id="Politicas">
             <ul class="list-unstyled d-flex flex-wrap gap-4 py-2 m-0 justify-content-center justify-content-md-start">
-                <li class="px-md-4"><a class="text-nowrap" href="term_cond.html">Terminos y Condiciones</a></li>
-                <li class="px-md-4"><a class="text-nowrap" href="privacidad.html">Privacidad</a></li>
-                <li class="px-md-4"><a class="text-nowrap" href="acerca.html">Acerca de</a></li>
+                <li class="px-md-4"><a class="text-nowrap" href="term_cond.html" >Terminos y Condiciones</a></li>
+                <li class="px-md-4"><a class="text-nowrap" href="privacidad.html" >Privacidad</a></li>
+                <li class="px-md-4"><a class="text-nowrap" href="acerca.html" >Acerca de</a></li>
             </ul>
         </section>
 

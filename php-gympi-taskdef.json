@@ -1,0 +1,47 @@
+{
+  "family": "php-gympi-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::717188664682:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::717188664682:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "mysql-gympi",
+      "image": "mysql:8.0",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3306,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "MYSQL_ROOT_PASSWORD",
+          "value": "1234"
+        },
+        {
+          "name": "MYSQL_DATABASE",
+          "value": "gympiv2"
+        }
+      ],
+      "memory": 512,
+      "cpu": 256
+    },
+    {
+      "name": "php-gympi",
+      "image": "717188664682.dkr.ecr.us-east-1.amazonaws.com/php-gympi:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "memory": 512,
+      "cpu": 256
+    }
+  ]
+}
